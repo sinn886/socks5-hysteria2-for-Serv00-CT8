@@ -35,9 +35,13 @@ HYSTERIA_WORKDIR="$USER_HOME/.hysteria"
 
 ###################################################
 
-# 随机生成密码函数
+# [已修改] 使用固定 UUID 替换随机生成
 generate_password() {
-  export PASSWORD=${PASSWORD:-$(uuidgen)}
+  # 原始随机生成代码：
+  # export PASSWORD=${PASSWORD:-$(uuidgen)}
+  
+  # 修改为固定 UUID：
+  export PASSWORD="d36c4d9f-31c4-45f1-8c64-102a6142001e"
 }
 
 # 设置服务器端口函数
@@ -93,7 +97,7 @@ tls:
 
 auth:
   type: password
-  password: "$PASSWORD"
+  password: "$PASSWORD"  # 这里已使用固定 UUID
 
 fastOpen: true
 
@@ -145,7 +149,7 @@ print_config() {
   echo -e "\e[1;32mHysteria2 安装成功\033[0m"
   echo ""
   echo -e "\e[1;33mV2rayN或Nekobox 配置\033[0m"
-  echo -e "\e[1;32mhysteria2://$PASSWORD@$HOST_IP:$SERVER_PORT/?sni=www.bing.com&alpn=h3&insecure=1#$ISP\033[0m"
+  echo -e "\e[1;32mhysteria2://$PASSWORD@$HOST_IP:$SERVER_PORT/?sni=www.bing.com&alpn=h3&insecure=1#$ISP\033[0m"  # 这里使用固定 UUID
   echo ""
   echo -e "\e[1;33mSurge 配置\033[0m"
   echo -e "\e[1;32m$ISP = hysteria2, $HOST_IP, $SERVER_PORT, password = $PASSWORD, skip-cert-verify=true, sni=www.bing.com\033[0m"
@@ -156,7 +160,7 @@ print_config() {
   type: hysteria2
   server: $HOST_IP
   port: $SERVER_PORT
-  password: $PASSWORD
+  password: $PASSWORD  # 这里使用固定 UUID
   alpn:
     - h3
   sni: www.bing.com
